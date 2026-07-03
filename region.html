@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Región — Peruvian Nativo Herbs</title>
+<meta name="description" content="Ficha completa de la región del Perú: lugar representativo, qué hacer, imperdibles y datos de viaje." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* ===== Barra de marca PERUVIAN NATIVO HERBS ===== */
+  .brandbar{
+    background:transparent;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 5vw;
+  }
+  .brandbar .brand-logo{ height:92px; width:auto; display:block; flex:none; }
+  .brandbar .spacer{ flex:1; }
+  .brandbar .back{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--clay-deep);
+    text-decoration:none;
+    border:1px solid var(--line-strong);
+    padding:7px 14px;
+    border-radius:20px;
+    transition:background .15s ease;
+    white-space:nowrap;
+  }
+  .brandbar .back:hover{ background:rgba(193,80,46,0.08); }
+
+  .region-main{
+    display:block;
+    max-width:1000px;
+    margin:0 auto;
+    padding:28px 5vw 60px;
+  }
+
+  /* ===== Hero con símbolo / lugar representativo ===== */
+  .region-hero{
+    display:flex;
+    align-items:center;
+    gap:26px;
+    background:linear-gradient(120deg, #f5d400, #f0c400);
+    border:2px solid #1a1408;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:26px 30px;
+    margin-bottom:30px;
+  }
+  .hero-symbol{
+    width:120px; height:120px; flex:none;
+    background:#1a1408;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:60px;
+    line-height:1;
+    box-shadow:0 8px 20px rgba(0,0,0,0.28);
+  }
+  .hero-text{ min-width:0; }
+  .hero-text .code{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:#6b4e00;
+    margin:0 0 4px;
+  }
+  .hero-text h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(28px, 5vw, 44px);
+    line-height:1.02;
+    margin:0 0 6px;
+    color:#1a1408;
+  }
+  .hero-text .landmark{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:16px;
+    color:#3a271a;
+    margin:0 0 4px;
+  }
+  .hero-text .capital{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#6b4e00;
+    margin:0;
+  }
+  @media (max-width:600px){
+    .region-hero{ flex-direction:column; text-align:center; }
+  }
+
+  /* ===== Tarjetas de información ===== */
+  .region-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  @media (max-width:760px){ .region-grid{ grid-template-columns:1fr; } }
+
+  .card{
+    background:var(--panel-2);
+    border:1px solid var(--line-strong);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:22px 24px 24px;
+  }
+  .card.full{ grid-column:1 / -1; }
+  .card h2{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--clay-deep);
+    margin:0 0 14px;
+    padding-bottom:10px;
+    border-bottom:1px dashed var(--line-strong);
+  }
+  .card .desc{ font-size:15px; line-height:1.6; margin:0; color:var(--ink); }
+
+  /* Tarjeta del destino representativo (imagen PNG sin fondo) */
+  .dest-card{ margin-bottom:22px; text-align:center; }
+  .dest-hero-img{
+    display:block;
+    margin:4px auto 10px;
+    max-width:100%;
+    max-height:300px;
+    width:auto;
+    object-fit:contain;
+    filter: drop-shadow(0 14px 20px rgba(90,45,20,0.28));
+  }
+  .dest-hero-cap{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:17px;
+    color:var(--clay-deep);
+    margin:0;
+  }
+
+  .acts{ list-style:none; margin:0; padding:0; }
+  .acts li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:8px 0;
+    font-size:14px;
+    line-height:1.45;
+    border-bottom:1px solid var(--line);
+  }
+  .acts li:last-child{ border-bottom:none; }
+  .acts .ico{ font-size:18px; flex:none; }
+
+  .must{
+    display:flex; gap:10px; align-items:flex-start;
+    background:rgba(224,161,42,0.14);
+    border:1px solid rgba(224,161,42,0.4);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:14px; line-height:1.5;
+  }
+  .must .star{ font-size:18px; flex:none; }
+
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    padding:5px 11px;
+    border-radius:14px;
+    background:rgba(193,80,46,0.12);
+    color:var(--clay-deep);
+    border:1px solid rgba(193,80,46,0.3);
+  }
+
+  .datos-list{ list-style:none; margin:0; padding:0; }
+  .datos-list li{
+    display:flex; justify-content:space-between; gap:14px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .datos-list li:last-child{ border-bottom:none; }
+  .datos-list .k{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .datos-list .v{ font-family:var(--sans); font-weight:500; color:var(--ink); text-align:right; }
+
+  .notfound{
+    text-align:center;
+    font-family:var(--sans);
+    color:var(--muted);
+    padding:60px 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="stripe"></div>
+
+<!-- Barra de marca -->
+<div class="brandbar">
+  <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+  <span class="spacer"></span>
+  <a href="index.html" class="back">← Volver al mapa</a>
+</div>
+
+<main class="region-main" id="region-main">
+  <!-- Contenido generado por JS -->
+</main>
+
+<script src="js/data.js"></script>
+<script>
+  /* ===== Utilidades ===== */
+  function titleCase(str){
+    return str.toLowerCase().split(" ")
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  }
+  function slugify(str){
+    return str.normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .toLowerCase().trim().replace(/\s+/g,"-");
+  }
+
+  /* ===== Render de la ficha de la región ===== */
+  const params = new URLSearchParams(window.location.search);
+  const key = (params.get("region") || "").toUpperCase().trim();
+  const info = DATA[key];
+  const main = document.getElementById("region-main");
+
+  if(!info){
+    document.title = "Región no encontrada — Peruvian Nativo Herbs";
+    main.innerHTML = `<div class="notfound">
+      <p style="font-size:46px;margin:0 0 10px">🗺️</p>
+      <p>Aún no tenemos la ficha de <b>${titleCase(key || "esta región")}</b>.</p>
+      <p><a href="index.html" style="color:var(--clay-deep)">← Volver al mapa</a></p>
+    </div>`;
+  } else {
+    const nombre = titleCase(key);
+    document.title = nombre + " — Peruvian Nativo Herbs";
+
+    const acts = info.actividades
+      .map(a => `<li><span class="ico">${a.ico}</span><span>${a.txt}</span></li>`)
+      .join("");
+    const tags = info.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+    main.innerHTML = `
+      <section class="region-hero">
+        <div class="hero-symbol">${info.simbolo || "📍"}</div>
+        <div class="hero-text">
+          <p class="code">PE-${info.codigo} · Región del Perú</p>
+          <h1>${nombre}</h1>
+          <p class="landmark">🏛️ Lugar representativo: ${info.landmark}</p>
+          <p class="capital">✈ Capital: ${info.capital}</p>
+        </div>
+      </section>
+
+      <section class="card full dest-card">
+        <h2>Destino más representativo</h2>
+        <img class="dest-hero-img" src="img/${slugify(key)}.png"
+             alt="${info.landmark}"
+             onerror="this.closest('.dest-card').style.display='none'">
+        <p class="dest-hero-cap">${info.simbolo || ''} ${info.landmark}</p>
+      </section>
+
+      <div class="region-grid">
+        <section class="card full">
+          <h2>Descripción</h2>
+          <p class="desc">${info.desc}</p>
+        </section>
+
+        <section class="card">
+          <h2>Qué hacer</h2>
+          <ul class="acts">${acts}</ul>
+        </section>
+
+        <section class="card">
+          <h2>Imperdible</h2>
+          <div class="must">
+            <span class="star">⭐</span>
+            <span>${info.imperdible}</span>
+          </div>
+          <h2 style="margin-top:20px">Etiquetas</h2>
+          <div class="tags">${tags}</div>
+        </section>
+
+        <section class="card full">
+          <h2>Datos de la región</h2>
+          <ul class="datos-list">
+            <li><span class="k">Lugar representativo</span><span class="v">${info.landmark}</span></li>
+            <li><span class="k">Capital</span><span class="v">${info.capital}</span></li>
+            <li><span class="k">Mejor época</span><span class="v">${info.epoca}</span></li>
+            <li><span class="k">Altitud capital</span><span class="v">${info.altitud}</span></li>
+            <li><span class="k">Plato típico</span><span class="v">${info.plato}</span></li>
+            <li><span class="k">Código</span><span class="v">PE-${info.codigo}</span></li>
+          </ul>
+        </section>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>

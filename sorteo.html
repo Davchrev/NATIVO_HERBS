@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sorteo — Mapa en ruta</title>
+<meta name="description" content="Participa en el sorteo de Mapa en ruta." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .sorteo-main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:34px 5vw 60px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+    align-items:start;
+  }
+  @media (max-width:860px){
+    .sorteo-main{ grid-template-columns:1fr; }
+  }
+
+  .sorteo-img{
+    width:100%;
+    height:auto;
+    display:block;
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    background:var(--panel-2);
+  }
+
+  .sorteo-form{
+    background:var(--panel-2);
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    padding:26px 26px 28px;
+  }
+  .sorteo-form h2{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:26px;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .sorteo-form .sub{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    margin:0 0 22px;
+    letter-spacing:0.04em;
+  }
+  .field{ margin-bottom:16px; }
+  .field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--clay-deep);
+    margin-bottom:6px;
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    width:100%;
+    font-family:var(--sans);
+    font-size:14px;
+    color:var(--ink);
+    background:var(--panel-2);
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    padding:10px 12px;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    outline:none;
+    border-color:var(--clay);
+    box-shadow:0 0 0 3px rgba(193,80,46,0.15);
+  }
+  .field textarea{ resize:vertical; min-height:80px; }
+  .check{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.5;
+    margin-bottom:20px;
+  }
+  .check input{ margin-top:3px; }
+
+  .btn-submit{
+    width:100%;
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#fff4e6;
+    background:linear-gradient(120deg, var(--clay), var(--sun));
+    border:1px solid var(--clay-deep);
+    padding:13px 22px;
+    border-radius:26px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(143,52,24,0.28);
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn-submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 26px rgba(143,52,24,0.36);
+    filter:saturate(1.1);
+  }
+
+  .sorteo-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:14px 5vw 0;
+    flex-wrap:wrap;
+  }
+  .back{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--clay-deep);
+    text-decoration:none;
+  }
+  .back:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div class="stripe"></div>
+
+<div class="sorteo-header">
+  <a href="index.html"><img class="site-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+  <a href="index.html" class="back">← Volver al mapa</a>
+</div>
+
+<main class="sorteo-main">
+  <img class="sorteo-img"
+       src="foto.png"
+       alt="Imagen del sorteo" />
+
+  <form class="sorteo-form" onsubmit="return false;">
+    <h2>Participa en el sorteo</h2>
+    <p class="sub">// completa tus datos para participar</p>
+
+    <div class="field">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido" required />
+    </div>
+
+    <div class="field">
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+    </div>
+
+    <div class="field">
+      <label for="telefono">Teléfono / WhatsApp</label>
+      <input type="tel" id="telefono" name="telefono" placeholder="+51 999 999 999" />
+    </div>
+
+    <div class="field">
+      <label for="region">Región favorita del Perú</label>
+      <select id="region" name="region">
+        <option value="">Selecciona una región…</option>
+        <option>Cusco</option>
+        <option>Arequipa</option>
+        <option>Loreto</option>
+        <option>Puno</option>
+        <option>La Libertad</option>
+        <option>Áncash</option>
+        <option>Otra</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="mensaje">Mensaje (opcional)</label>
+      <textarea id="mensaje" name="mensaje" placeholder="¿Por qué quieres participar?"></textarea>
+    </div>
+
+    <label class="check">
+      <input type="checkbox" name="acepto" required />
+      <span>Acepto los términos y condiciones del sorteo y el tratamiento de mis datos.</span>
+    </label>
+
+    <button type="submit" class="btn-submit">Enviar participación</button>
+  </form>
+</main>
+
+</body>
+</html>
