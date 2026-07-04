@@ -144,4 +144,114 @@ function selectRegion(key, node){
       <div class="barcode"></div>
     </div>
   `;
+
+  // Tematiza el encabezado de la ficha con el color de la foto de la región.
+  const pass = el.querySelector(".pass");
+  const img = el.querySelector(".dest-img");
+  if(pass && img){
+    if(img.complete && img.naturalWidth){
+      themePassFromImage(img, pass);
+    } else {
+      img.addEventListener("load", () => themePassFromImage(img, pass), { once:true });
+    }
+  }
+}
+
+/* ==========================================================================
+   Extrae un color dominante de la foto y lo aplica al encabezado de la ficha,
+   eligiendo texto claro u oscuro según el contraste.
+   ========================================================================== */
+function themePassFromImage(img, pass){
+  try{
+    const w = 40, h = 40;
+    const cv = document.createElement("canvas");
+    cv.width = w; cv.height = h;
+    const ctx = cv.getContext("2d", { willReadFrequently:true });
+    ctx.drawImage(img, 0, 0, w, h);
+    const data = ctx.getImageData(0, 0, w, h).data;
+
+    // Agrupa píxeles en cubos de color y puntúa por población y saturación.
+    const bins = {};
+    for(let i = 0; i < data.length; i += 4){
+      const a = data[i+3];
+      if(a < 125) continue;
+      const r = data[i], g = data[i+1], b = data[i+2];
+      const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+      const sat = mx === 0 ? 0 : (mx - mn) / mx;
+      const lum = (0.2126*r + 0.7152*g + 0.0722*b) / 255;
+      // Descarta casi-blancos y casi-negros para no "lavar" el color.
+      if(lum > 0.93 || lum < 0.06) continue;
+      const key = (r >> 4) + "," + (g >> 4) + "," + (b >> 4);
+      const bin = bins[key] || (bins[key] = { r:0, g:0, b:0, n:0, score:0 });
+      bin.r += r; bin.g += g; bin.b += b; bin.n++;
+      bin.score += 1 + sat * 2;
+    }
+
+    let best = null;
+    for(const k in bins){ if(!best || bins[k].score > best.score) best = bins[k]; }
+    if(!best){ pass.style.removeProperty("--pass-c1"); return; }
+
+    let r = Math.round(best.r / best.n);
+    let g = Math.round(best.g / best.n);
+    let b = Math.round(best.b / best.n);
+
+    const [h1, s, l] = rgbToHsl(r, g, b);
+    // Asegura un color con cuerpo para el degradado del encabezado.
+    const c1 = hslToRgb(h1, Math.min(0.72, Math.max(0.42, s)), clamp(l, 0.34, 0.5));
+    const c2 = hslToRgb((h1 + 18) % 360, Math.min(0.78, Math.max(0.5, s)), clamp(l + 0.1, 0.42, 0.6));
+
+    const fg = contrastText(c1);
+    pass.style.setProperty("--pass-c1", rgbCss(c1));
+    pass.style.setProperty("--pass-c2", rgbCss(c2));
+    pass.style.setProperty("--pass-fg", fg);
+  }catch(e){
+    // Si la imagen no permite leer píxeles, se mantiene el tema por defecto.
+    pass.style.removeProperty("--pass-c1");
+  }
+}
+
+function clamp(v, lo, hi){ return Math.min(hi, Math.max(lo, v)); }
+function rgbCss(c){ return "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")"; }
+
+/* Texto blanco o casi-negro según la luminancia del fondo (contraste WCAG). */
+function contrastText(c){
+  const lin = c.map(v => { v /= 255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
+  const lum = 0.2126*lin[0] + 0.7152*lin[1] + 0.0722*lin[2];
+  return lum > 0.42 ? "#1c1409" : "#fff8ef";
+}
+
+function rgbToHsl(r, g, b){
+  r/=255; g/=255; b/=255;
+  const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+  let h, s, l = (mx+mn)/2;
+  if(mx === mn){ h = s = 0; }
+  else{
+    const d = mx - mn;
+    s = l > 0.5 ? d/(2-mx-mn) : d/(mx+mn);
+    switch(mx){
+      case r: h = (g-b)/d + (g<b?6:0); break;
+      case g: h = (b-r)/d + 2; break;
+      default: h = (r-g)/d + 4;
+    }
+    h *= 60;
+  }
+  return [h, s, l];
+}
+
+function hslToRgb(h, s, l){
+  h/=360;
+  const q = l < 0.5 ? l*(1+s) : l+s-l*s;
+  const p = 2*l - q;
+  const hue = t => {
+    if(t < 0) t += 1; if(t > 1) t -= 1;
+    if(t < 1/6) return p + (q-p)*6*t;
+    if(t < 1/2) return q;
+    if(t < 2/3) return p + (q-p)*(2/3 - t)*6;
+    return p;
+  };
+  return [
+    Math.round(hue(h + 1/3) * 255),
+    Math.round(hue(h) * 255),
+    Math.round(hue(h - 1/3) * 255)
+  ];
 }

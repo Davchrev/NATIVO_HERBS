@@ -149,23 +149,30 @@
   .hero-scrim{
     position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
-      linear-gradient(to top, rgba(20,12,6,0.85) 0%, rgba(20,12,6,0.25) 40%, rgba(20,12,6,0.0) 65%),
-      linear-gradient(to bottom, rgba(20,12,6,0.45) 0%, rgba(20,12,6,0.0) 22%);
+      linear-gradient(to top,
+        rgba(10,11,15,0.94) 0%,
+        rgba(10,11,15,0.80) 22%,
+        rgba(10,11,15,0.45) 48%,
+        rgba(10,11,15,0.0) 78%),
+      linear-gradient(to bottom, rgba(10,11,15,0.55) 0%, rgba(10,11,15,0.0) 26%);
   }
   .lima-hero .hero-inner{
     position:relative; z-index:2; padding:40px 5vw 8vh; max-width:1100px; margin:0 auto; width:100%;
   }
   .lima-hero .eyebrow{
     font-family:var(--mono); font-size:12px; letter-spacing:0.16em;
-    text-transform:uppercase; color:#ffd98a; margin:0 0 10px;
+    text-transform:uppercase; color:#ffe0a0; margin:0 0 10px;
+    text-shadow:0 1px 10px rgba(0,0,0,0.7);
   }
   .lima-hero h1{
     font-family:var(--serif); font-weight:700; font-size:clamp(44px, 9vw, 92px);
-    line-height:0.95; margin:0 0 12px; text-shadow:0 4px 24px rgba(0,0,0,0.45);
+    line-height:0.95; margin:0 0 12px; color:#fff;
+    text-shadow:0 2px 6px rgba(0,0,0,0.55), 0 8px 32px rgba(0,0,0,0.5);
   }
   .lima-hero .sub{
     font-family:var(--sans); font-size:clamp(15px,2.4vw,19px); max-width:620px;
     line-height:1.5; margin:0 0 22px; color:#f4e9dc;
+    text-shadow:0 1px 10px rgba(0,0,0,0.6);
   }
   .lima-hero .cta{
     display:inline-flex; align-items:center; gap:9px; font-family:var(--sans);
@@ -295,11 +302,11 @@
       </div>`;
   } else {
     /* Detectamos cuántas fotos hay en img/<region>/ y decidimos el diseño. */
-    probePhotos(slug, function(photos){
-      if(photos.length >= 2){
-        renderRich(photos);
+    probePhotos(slug, function(res){
+      if(res){
+        renderRich(res.first, res.ext);
       } else {
-        renderNormal(photos[0] || `img/${slug}.png`);
+        renderNormal(`img/${slug}.png`);
       }
     });
   }
@@ -314,28 +321,21 @@
   function probePhotos(slug, done){
     const exts = ["jpg","jpeg","png","webp"];
     let settled = false, pending = exts.length;
-    // Probamos la 1ª foto en todas las extensiones EN PARALELO (rápido).
+    // Probamos SOLO la 1ª foto en todas las extensiones EN PARALELO.
+    // En cuanto sabemos que la carpeta existe, respondemos con la primera foto;
+    // las demás se descubren después (ya con el hero visible), sin bloquear la carga.
     exts.forEach(ext => {
       const first = `img/${slug}/1.${ext}`;
       testImage(first, ok => {
         if(settled) return;
-        if(ok){ settled = true; collect(ext, first); }
-        else if(--pending === 0){ settled = true; done([]); }  // no hay carpeta con fotos
+        if(ok){ settled = true; done({ first, ext }); }
+        else if(--pending === 0){ settled = true; done(null); }  // no hay carpeta con fotos
       });
     });
-    function collect(ext, first){
-      const found = [first];
-      step(2);
-      function step(n){
-        if(n > 20){ done(found); return; }
-        const src = `img/${slug}/${n}.${ext}`;
-        testImage(src, ok => { if(ok){ found.push(src); step(n+1); } else done(found); });
-      }
-    }
   }
 
   /* ===== MODO RICO (carrusel) ===== */
-  function renderRich(photos){
+  function renderRich(firstSrc, ext){
     const nombre = titleCase(key);
     document.title = nombre + " — Peruvian Nativo Herbs";
 
@@ -414,26 +414,39 @@
       <footer>Peruvian Nativo Herbs · Datos con fines ilustrativos</footer>
     `;
 
-    startCarousel(photos);
+    startCarousel(firstSrc, ext);
   }
 
-  function startCarousel(photos){
+  function startCarousel(firstSrc, ext){
     const slidesEl = document.getElementById("heroSlides");
-    const slides = photos.map((src, i) => {
+    const slides = [];
+
+    function addSlide(src){
       const d = document.createElement("div");
-      d.className = "hero-slide" + (i === 0 ? " active" : "");
+      d.className = "hero-slide" + (slides.length === 0 ? " active" : "");
       d.style.backgroundImage = `url('${src}')`;
       slidesEl.appendChild(d);
-      return d;
-    });
-    if(slides.length > 1){
-      let idx = 0;
-      setInterval(() => {
-        slides[idx].classList.remove("active");
-        idx = (idx + 1) % slides.length;
-        slides[idx].classList.add("active");
-      }, 5000);
+      slides.push(d);
     }
+
+    // 1) Mostramos la primera foto de inmediato (ya está en caché tras el probe).
+    addSlide(firstSrc);
+
+    // 2) Descubrimos y añadimos el resto EN SEGUNDO PLANO, ya con el hero visible.
+    (function discover(n){
+      if(n > 20) return;
+      const src = `img/${slug}/${n}.${ext}`;
+      testImage(src, ok => { if(ok){ addSlide(src); discover(n + 1); } });
+    })(2);
+
+    // 3) Rotación (se activa sola en cuanto hay 2+ fotos cargadas).
+    let idx = 0;
+    setInterval(() => {
+      if(slides.length < 2) return;
+      slides[idx].classList.remove("active");
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add("active");
+    }, 5000);
   }
 
   /* ===== MODO NORMAL (ficha clásica) ===== */

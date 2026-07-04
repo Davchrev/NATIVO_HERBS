@@ -1,0 +1,5 @@
+# Respaldo local de fotos originales (no se usa en el sitio)
+img/_originales/
+
+# Sistema
+.DS_Store
