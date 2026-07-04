@@ -107,6 +107,11 @@ html{ scroll-behavior:smooth; }
 /* =====================================================================
    MODO RICO (2+ fotos) — landing con carrusel
    ===================================================================== */
+/* styles.css define main{display:grid; grid-template-columns:1.5fr 1fr; min-height:660px}
+   para el mapa del index. Aquí el <main> es un flujo normal de secciones:
+   sin este override, el grid desalinea el contenido y desborda en móvil. */
+#rich main{ display:block; min-height:0; }
+
 .lima-nav{
   position:absolute; top:0; left:0; right:0; z-index:3;
   display:flex; align-items:center; gap:14px; padding:20px 5vw;
@@ -253,13 +258,8 @@ html{ scroll-behavior:smooth; }
   .quick-strip{ gap:8px 22px; }
 }
 
-/* En celular el hero deja de ser pantalla completa: baja de altura para que
-   la foto (horizontal) se recorte mucho menos y no se vea agrandada. */
+/* En celular el hero ocupa toda la pantalla (100svh, ya definido arriba);
+   solo se ajusta el respiro inferior del texto. */
 @media (max-width:640px){
-  .lima-hero{ min-height:62svh; }
   .lima-hero .hero-inner{ padding-bottom:6vh; }
-}
-/* Pantallas muy bajas (celular apaisado): un poco más de alto para el texto. */
-@media (max-width:640px) and (max-height:520px){
-  .lima-hero{ min-height:88svh; }
 }
