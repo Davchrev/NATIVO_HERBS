@@ -4,16 +4,113 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Región — Peruvian Nativo Herbs</title>
-<meta name="description" content="Ficha de viaje de la región del Perú: lugar representativo, qué hacer, imperdibles y datos de viaje." />
+<meta name="description" content="Ficha de viaje de la región del Perú: lugares turísticos, qué hacer, imperdibles y datos de viaje." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,400;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/region.css">
+<link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
 
+<!-- ================================================================
+     MODO NORMAL (1 foto): ficha clásica. La arma region.js aquí.
+     ================================================================ -->
 <div id="app"></div>
+
+<!-- ================================================================
+     MODO RICO (2+ fotos): estructura FIJA en HTML. region.js solo
+     rellena los textos/fotos desde js/data.js (no arma la página).
+     ================================================================ -->
+<div id="rich" hidden>
+  <header class="lima-hero">
+    <div class="hero-slides" id="slides"><!-- fotos --></div>
+    <div class="hero-scrim"></div>
+    <nav class="lima-nav">
+      <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+      <span class="spacer"></span>
+      <a href="index.html" class="back">← Volver al mapa</a>
+    </nav>
+    <div class="hero-inner">
+      <p class="eyebrow" id="r-eyebrow"></p>
+      <h1 id="r-nombre"></h1>
+      <p class="sub" id="r-desc"></p>
+      <a href="#lugares" class="cta" id="r-cta"></a>
+    </div>
+  </header>
+
+  <div class="quick-strip">
+    <div class="qi"><span class="k">Capital</span><span class="v" id="r-capital"></span></div>
+    <div class="qi"><span class="k">Mejor época</span><span class="v" id="r-epoca"></span></div>
+    <div class="qi"><span class="k">Altitud</span><span class="v" id="r-altitud"></span></div>
+    <div class="qi"><span class="k">Plato típico</span><span class="v" id="r-plato"></span></div>
+  </div>
+
+  <section class="region-intro" id="r-introSection">
+    <p class="kicker" id="r-introKicker"></p>
+    <p id="r-intro"></p>
+  </section>
+
+  <main id="lugares">
+    <section class="places" id="places"><!-- lugares destacados --></section>
+
+    <section class="sec-head" id="r-spotsHead">
+      <p class="kicker">Más para ver</p>
+      <h2 id="r-spotsTitle"></h2>
+      <p id="r-spotsSub"></p>
+    </section>
+    <section class="spots" id="spots"><!-- otros lugares --></section>
+
+    <section class="feature-band">
+      <div class="fb-emoji" id="r-fbEmoji"></div>
+      <div class="fb-text">
+        <p class="kicker">Imperdible</p>
+        <h2 id="r-fbTitle"></h2>
+        <p id="r-fbText"></p>
+      </div>
+    </section>
+
+    <section class="lima-cta">
+      <h2>¿Y tú qué planes?</h2>
+      <p>Lleva el sabor del Perú contigo con Peruvian Nativo Herbs.</p>
+      <div class="btns">
+        <a href="sorteo.html" class="primary">🎟️ Participa en el sorteo</a>
+        <a href="index.html" class="ghost">← Explorar otras regiones</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>Peruvian Nativo Herbs · Datos con fines ilustrativos</footer>
+</div>
+
+<!-- ================ PLANTILLAS que region.js clona por cada item ================ -->
+<template id="tpl-slide">
+  <div class="hero-slide"><img alt=""></div>
+</template>
+
+<template id="tpl-place">
+  <article class="place">
+    <div class="place-media">
+      <img alt="">
+      <span class="place-badge"></span>
+    </div>
+    <div class="place-body">
+      <p class="place-kicker"></p>
+      <h3></h3>
+      <p class="place-desc"></p>
+      <div class="place-meta"></div>
+    </div>
+  </article>
+</template>
+
+<template id="tpl-spot">
+  <article class="spot">
+    <span class="ico"></span>
+    <h4></h4>
+    <p></p>
+  </article>
+</template>
 
 <script src="js/data.js"></script>
 <script src="js/region.js"></script>

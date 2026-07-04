@@ -125,7 +125,8 @@ html{ scroll-behavior:smooth; }
 .lima-nav .back:hover{ background:rgba(0,0,0,0.4); }
 
 .lima-hero{
-  position:relative; min-height:100vh; display:flex; align-items:flex-end;
+  position:relative; min-height:100vh; min-height:100svh;
+  display:flex; align-items:flex-end;
   background:#2b1c10; color:#fff; overflow:hidden;
 }
 .hero-slides{ position:absolute; inset:0; z-index:0; }

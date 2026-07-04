@@ -1,3 +1,10 @@
+/* ==========================================================================
+   region.js — Una sola plantilla para todas las regiones.
+   · Si la región trae contenido rico en DATA (campo "lugares") → MODO RICO:
+     rellena la estructura HTML de #rich desde los datos (no arma la página).
+   · Si no → MODO NORMAL: ficha clásica.
+   ========================================================================== */
+
 /* ===== Utilidades ===== */
 function titleCase(str){
   return str.toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
@@ -27,149 +34,111 @@ if(!info){
       <p>Aún no tenemos la ficha de <b>${titleCase(key || "esta región")}</b>.</p>
       <p><a href="index.html" style="color:var(--clay-deep)">← Volver al mapa</a></p>
     </div>`;
+} else if(Array.isArray(info.lugares) && info.lugares.length){
+  renderRich();
 } else {
-  /* Detectamos cuántas fotos hay en img/<region>/ y decidimos el diseño. */
-  probePhotos(slug, function(res){
-    if(res){
-      renderRich(res.first, res.ext);
-    } else {
-      renderNormal(`img/${slug}.png`);
-    }
-  });
+  renderNormal(`img/${slug}.png`);
 }
 
-/* ===== Detección de fotos por carpeta (probing) ===== */
-function testImage(src, cb){
-  const img = new Image();
-  img.onload = () => cb(true);
-  img.onerror = () => cb(false);
-  img.src = src;
-}
-function probePhotos(slug, done){
-  const exts = ["jpg","jpeg","png","webp"];
-  let settled = false, pending = exts.length;
-  // Probamos SOLO la 1ª foto en todas las extensiones EN PARALELO.
-  // En cuanto sabemos que la carpeta existe, respondemos con la primera foto;
-  // las demás se descubren después (ya con el hero visible), sin bloquear la carga.
-  exts.forEach(ext => {
-    const first = `img/${slug}/1.${ext}`;
-    testImage(first, ok => {
-      if(settled) return;
-      if(ok){ settled = true; done({ first, ext }); }
-      else if(--pending === 0){ settled = true; done(null); }  // no hay carpeta con fotos
-    });
-  });
-}
-
-/* ===== MODO RICO (carrusel) ===== */
-function renderRich(firstSrc, ext){
+/* ===== MODO RICO — rellena la plantilla #rich desde los datos ===== */
+function renderRich(){
   const nombre = titleCase(key);
   document.title = nombre + " — Peruvian Nativo Herbs";
 
-  const exps = info.actividades.map(a =>
-    `<article class="exp-card"><div class="ico">${a.ico}</div><p class="exp-txt">${a.txt}</p></article>`
-  ).join("");
+  const setText = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  const setHTML = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
 
-  app.innerHTML = `
-    <header class="lima-hero">
-      <div class="hero-slides" id="heroSlides"></div>
-      <div class="hero-scrim"></div>
-      <nav class="lima-nav">
-        <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
-        <span class="spacer"></span>
-        <a href="index.html" class="back">← Volver al mapa</a>
-      </nav>
-      <div class="hero-inner">
-        <p class="eyebrow">PE-${info.codigo} · Región del Perú</p>
-        <h1>${nombre}</h1>
-        <p class="sub">${info.desc}</p>
-        <a href="#experiencias" class="cta">Descubre ${nombre} ↓</a>
-      </div>
-    </header>
+  /* Hero + cabecera */
+  setText("r-eyebrow", `PE-${info.codigo} · Región del Perú`);
+  setText("r-nombre", nombre);
+  setText("r-desc", info.desc);
+  setText("r-cta", `Descubre ${nombre} ↓`);
 
-    <div class="quick-strip">
-      <div class="qi"><span class="k">Capital</span><span class="v">${info.capital}</span></div>
-      <div class="qi"><span class="k">Mejor época</span><span class="v">${info.epoca}</span></div>
-      <div class="qi"><span class="k">Altitud</span><span class="v">${info.altitud}</span></div>
-      <div class="qi"><span class="k">Plato típico</span><span class="v">${info.plato}</span></div>
-    </div>
+  /* Datos rápidos */
+  setText("r-capital", info.capital);
+  setText("r-epoca", info.epoca);
+  setText("r-altitud", info.altitud);
+  setText("r-plato", info.plato);
 
-    <main class="lima-wrap">
-      <section id="experiencias">
-        <div class="sec-head">
-          <p class="kicker">¿Qué hacer en ${nombre}?</p>
-          <h2>Planes imperdibles</h2>
-          <p>Esto es lo que no te puedes perder en ${nombre}.</p>
-        </div>
-        <div class="exp-grid">${exps}</div>
-      </section>
-
-      <section class="feature-band">
-        <div class="fb-emoji">${info.simbolo || "⭐"}</div>
-        <div class="fb-text">
-          <p class="kicker">Imperdible</p>
-          <h2>${info.landmark}</h2>
-          <p>${info.imperdible}</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="sec-head">
-          <p class="kicker">Antes de viajar</p>
-          <h2>Datos para tu viaje</h2>
-        </div>
-        <div class="travel-data">
-          <div class="td"><span class="k">Capital</span><span class="v">${info.capital}</span></div>
-          <div class="td"><span class="k">Mejor época</span><span class="v">${info.epoca}</span></div>
-          <div class="td"><span class="k">Altitud capital</span><span class="v">${info.altitud}</span></div>
-          <div class="td"><span class="k">Plato típico</span><span class="v">${info.plato}</span></div>
-          <div class="td"><span class="k">Lugar representativo</span><span class="v">${info.landmark}</span></div>
-          <div class="td"><span class="k">Código</span><span class="v">PE-${info.codigo}</span></div>
-        </div>
-      </section>
-
-      <section class="lima-cta">
-        <h2>¿Y tú qué planes?</h2>
-        <p>Lleva el sabor del Perú contigo con Peruvian Nativo Herbs.</p>
-        <div class="btns">
-          <a href="sorteo.html" class="primary">🎟️ Participa en el sorteo</a>
-          <a href="index.html" class="ghost">← Explorar otras regiones</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>Peruvian Nativo Herbs · Datos con fines ilustrativos</footer>
-  `;
-
-  startCarousel(firstSrc, ext);
-}
-
-function startCarousel(firstSrc, ext){
-  const slidesEl = document.getElementById("heroSlides");
-  const slides = [];
-
-  function addSlide(src){
-    const d = document.createElement("div");
-    d.className = "hero-slide" + (slides.length === 0 ? " active" : "");
-    d.style.backgroundImage = `url('${src}')`;
-    slidesEl.appendChild(d);
-    slides.push(d);
+  /* Intro (opcional) */
+  if(info.intro){
+    setText("r-introKicker", `Bienvenido a ${nombre}`);
+    setText("r-intro", info.intro);
+  } else {
+    document.getElementById("r-introSection").hidden = true;
   }
 
-  // 1) Mostramos la primera foto de inmediato (ya está en caché tras el probe).
-  addSlide(firstSrc);
+  /* Fotos del hero */
+  const slidesEl = document.getElementById("slides");
+  const tplSlide = document.getElementById("tpl-slide");
+  info.fotos.forEach((f, i) => {
+    const node = tplSlide.content.cloneNode(true);
+    const slide = node.querySelector(".hero-slide");
+    const img = node.querySelector("img");
+    if(i === 0){ slide.classList.add("active"); img.setAttribute("fetchpriority", "high"); }
+    else { img.setAttribute("loading", "lazy"); }
+    img.src = f.src;
+    img.alt = f.alt || nombre;
+    if(f.pos) img.style.objectPosition = f.pos;
+    slidesEl.appendChild(node);
+  });
 
-  // 2) Descubrimos y añadimos el resto EN SEGUNDO PLANO, ya con el hero visible.
-  (function discover(n){
-    if(n > 20) return;
-    const src = `img/${slug}/${n}.${ext}`;
-    testImage(src, ok => { if(ok){ addSlide(src); discover(n + 1); } });
-  })(2);
+  /* Lugares destacados */
+  const placesEl = document.getElementById("places");
+  const tplPlace = document.getElementById("tpl-place");
+  info.lugares.forEach(l => {
+    const node = tplPlace.content.cloneNode(true);
+    const img = node.querySelector(".place-media img");
+    img.src = l.img;
+    img.alt = l.nombre;
+    if(l.pos) img.style.objectPosition = l.pos;
+    node.querySelector(".place-badge").textContent = l.badge || "";
+    node.querySelector(".place-kicker").textContent = l.kicker || "";
+    node.querySelector("h3").textContent = l.nombre;
+    node.querySelector(".place-desc").innerHTML = l.desc;
+    const meta = node.querySelector(".place-meta");
+    (l.meta || []).forEach(m => {
+      const s = document.createElement("span");
+      s.textContent = m;
+      meta.appendChild(s);
+    });
+    placesEl.appendChild(node);
+  });
 
-  // 3) Rotación (se activa sola en cuanto hay 2+ fotos cargadas).
+  /* Otros lugares (opcional) */
+  if(Array.isArray(info.spots) && info.spots.length){
+    setText("r-spotsTitle", `Otros imperdibles de ${nombre}`);
+    setText("r-spotsSub", "Barrios, sitios y rincones para seguir explorando.");
+    const spotsEl = document.getElementById("spots");
+    const tplSpot = document.getElementById("tpl-spot");
+    info.spots.forEach(s => {
+      const node = tplSpot.content.cloneNode(true);
+      node.querySelector(".ico").textContent = s.ico || "📍";
+      node.querySelector("h4").textContent = s.nombre;
+      node.querySelector("p").innerHTML = s.desc;
+      spotsEl.appendChild(node);
+    });
+  } else {
+    document.getElementById("r-spotsHead").hidden = true;
+    document.getElementById("spots").hidden = true;
+  }
+
+  /* Banda "Imperdible" (reutiliza campos existentes) */
+  setText("r-fbEmoji", info.simbolo || "⭐");
+  setText("r-fbTitle", info.landmark);
+  setHTML("r-fbText", info.imperdible);
+
+  /* Mostrar la sección rica e iniciar el carrusel */
+  document.getElementById("rich").hidden = false;
+  startCarousel(slidesEl);
+}
+
+/* Rotación del hero cada 5 s */
+function startCarousel(slidesEl){
+  const slides = Array.from(slidesEl.querySelectorAll(".hero-slide"));
+  if(slides.length < 2) return;
   let idx = 0;
   setInterval(() => {
-    if(slides.length < 2) return;
     slides[idx].classList.remove("active");
     idx = (idx + 1) % slides.length;
     slides[idx].classList.add("active");
