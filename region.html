@@ -4,315 +4,504 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Región — Peruvian Nativo Herbs</title>
-<meta name="description" content="Ficha completa de la región del Perú: lugar representativo, qué hacer, imperdibles y datos de viaje." />
+<meta name="description" content="Ficha de viaje de la región del Perú: lugar representativo, qué hacer, imperdibles y datos de viaje." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <style>
-  /* ===== Barra de marca PERUVIAN NATIVO HERBS ===== */
+  html{ scroll-behavior:smooth; }
+
+  /* =====================================================================
+     MODO NORMAL (1 foto) — ficha clásica
+     ===================================================================== */
   .brandbar{
     background:transparent;
     border-bottom:1px solid var(--line);
-    display:flex;
-    align-items:center;
-    gap:14px;
+    display:flex; align-items:center; gap:14px;
     padding:12px 5vw;
   }
   .brandbar .brand-logo{ height:92px; width:auto; display:block; flex:none; }
   .brandbar .spacer{ flex:1; }
   .brandbar .back{
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--clay-deep);
-    text-decoration:none;
-    border:1px solid var(--line-strong);
-    padding:7px 14px;
-    border-radius:20px;
-    transition:background .15s ease;
-    white-space:nowrap;
+    font-family:var(--mono); font-size:12px; color:var(--clay-deep);
+    text-decoration:none; border:1px solid var(--line-strong);
+    padding:7px 14px; border-radius:20px;
+    transition:background .15s ease; white-space:nowrap;
   }
   .brandbar .back:hover{ background:rgba(193,80,46,0.08); }
 
-  .region-main{
-    display:block;
-    max-width:1000px;
-    margin:0 auto;
-    padding:28px 5vw 60px;
-  }
+  .region-main{ display:block; max-width:1000px; margin:0 auto; padding:28px 5vw 60px; }
 
-  /* ===== Hero con símbolo / lugar representativo ===== */
   .region-hero{
-    display:flex;
-    align-items:center;
-    gap:26px;
+    display:flex; align-items:center; gap:26px;
     background:linear-gradient(120deg, #f5d400, #f0c400);
-    border:2px solid #1a1408;
-    border-radius:14px;
-    box-shadow:var(--shadow);
-    padding:26px 30px;
-    margin-bottom:30px;
+    border:2px solid #1a1408; border-radius:14px;
+    box-shadow:var(--shadow); padding:26px 30px; margin-bottom:30px;
   }
   .hero-symbol{
     width:120px; height:120px; flex:none;
-    background:#1a1408;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:60px;
-    line-height:1;
-    box-shadow:0 8px 20px rgba(0,0,0,0.28);
+    background:#1a1408; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:60px; line-height:1; box-shadow:0 8px 20px rgba(0,0,0,0.28);
   }
   .hero-text{ min-width:0; }
   .hero-text .code{
-    font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:#6b4e00;
-    margin:0 0 4px;
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:#6b4e00; margin:0 0 4px;
   }
   .hero-text h1{
-    font-family:var(--serif);
-    font-weight:700;
-    font-size:clamp(28px, 5vw, 44px);
-    line-height:1.02;
-    margin:0 0 6px;
-    color:#1a1408;
+    font-family:var(--serif); font-weight:700;
+    font-size:clamp(28px, 5vw, 44px); line-height:1.02; margin:0 0 6px; color:#1a1408;
   }
-  .hero-text .landmark{
-    font-family:var(--sans);
-    font-weight:600;
-    font-size:16px;
-    color:#3a271a;
-    margin:0 0 4px;
-  }
-  .hero-text .capital{
-    font-family:var(--mono);
-    font-size:13px;
-    color:#6b4e00;
-    margin:0;
-  }
-  @media (max-width:600px){
-    .region-hero{ flex-direction:column; text-align:center; }
-  }
+  .hero-text .landmark{ font-family:var(--sans); font-weight:600; font-size:16px; color:#3a271a; margin:0 0 4px; }
+  .hero-text .capital{ font-family:var(--mono); font-size:13px; color:#6b4e00; margin:0; }
+  @media (max-width:600px){ .region-hero{ flex-direction:column; text-align:center; } }
 
-  /* ===== Tarjetas de información ===== */
-  .region-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:22px;
-  }
+  .region-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
   @media (max-width:760px){ .region-grid{ grid-template-columns:1fr; } }
 
   .card{
-    background:var(--panel-2);
-    border:1px solid var(--line-strong);
-    border-radius:10px;
-    box-shadow:var(--shadow);
-    padding:22px 24px 24px;
+    background:var(--panel-2); border:1px solid var(--line-strong);
+    border-radius:10px; box-shadow:var(--shadow); padding:22px 24px 24px;
   }
   .card.full{ grid-column:1 / -1; }
   .card h2{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--clay-deep);
-    margin:0 0 14px;
-    padding-bottom:10px;
-    border-bottom:1px dashed var(--line-strong);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--clay-deep); margin:0 0 14px;
+    padding-bottom:10px; border-bottom:1px dashed var(--line-strong);
   }
   .card .desc{ font-size:15px; line-height:1.6; margin:0; color:var(--ink); }
 
-  /* Tarjeta del destino representativo (imagen PNG sin fondo) */
   .dest-card{ margin-bottom:22px; text-align:center; }
   .dest-hero-img{
-    display:block;
-    margin:4px auto 10px;
-    max-width:100%;
-    max-height:300px;
-    width:auto;
-    object-fit:contain;
-    filter: drop-shadow(0 14px 20px rgba(90,45,20,0.28));
+    display:block; margin:4px auto 10px; max-width:100%; max-height:300px;
+    width:auto; object-fit:contain; filter: drop-shadow(0 14px 20px rgba(90,45,20,0.28));
   }
-  .dest-hero-cap{
-    font-family:var(--serif);
-    font-style:italic;
-    font-size:17px;
-    color:var(--clay-deep);
-    margin:0;
-  }
+  .dest-hero-cap{ font-family:var(--serif); font-style:italic; font-size:17px; color:var(--clay-deep); margin:0; }
 
   .acts{ list-style:none; margin:0; padding:0; }
   .acts li{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    padding:8px 0;
-    font-size:14px;
-    line-height:1.45;
-    border-bottom:1px solid var(--line);
+    display:flex; align-items:flex-start; gap:10px; padding:8px 0;
+    font-size:14px; line-height:1.45; border-bottom:1px solid var(--line);
   }
   .acts li:last-child{ border-bottom:none; }
   .acts .ico{ font-size:18px; flex:none; }
 
   .must{
     display:flex; gap:10px; align-items:flex-start;
-    background:rgba(224,161,42,0.14);
-    border:1px solid rgba(224,161,42,0.4);
-    border-radius:8px;
-    padding:12px 14px;
-    font-size:14px; line-height:1.5;
+    background:rgba(224,161,42,0.14); border:1px solid rgba(224,161,42,0.4);
+    border-radius:8px; padding:12px 14px; font-size:14px; line-height:1.5;
   }
   .must .star{ font-size:18px; flex:none; }
 
   .tags{ display:flex; flex-wrap:wrap; gap:8px; }
   .tag{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.04em;
-    padding:5px 11px;
-    border-radius:14px;
-    background:rgba(193,80,46,0.12);
-    color:var(--clay-deep);
-    border:1px solid rgba(193,80,46,0.3);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.04em;
+    padding:5px 11px; border-radius:14px; background:rgba(193,80,46,0.12);
+    color:var(--clay-deep); border:1px solid rgba(193,80,46,0.3);
   }
 
   .datos-list{ list-style:none; margin:0; padding:0; }
   .datos-list li{
-    display:flex; justify-content:space-between; gap:14px;
-    padding:10px 0;
-    border-bottom:1px solid var(--line);
-    font-size:14px;
+    display:flex; justify-content:space-between; gap:14px; padding:10px 0;
+    border-bottom:1px solid var(--line); font-size:14px;
   }
   .datos-list li:last-child{ border-bottom:none; }
   .datos-list .k{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--muted);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--muted);
   }
   .datos-list .v{ font-family:var(--sans); font-weight:500; color:var(--ink); text-align:right; }
 
-  .notfound{
-    text-align:center;
-    font-family:var(--sans);
-    color:var(--muted);
-    padding:60px 20px;
+  .notfound{ text-align:center; font-family:var(--sans); color:var(--muted); padding:60px 20px; }
+
+  /* =====================================================================
+     MODO RICO (2+ fotos) — landing con carrusel
+     ===================================================================== */
+  .lima-nav{
+    position:absolute; top:0; left:0; right:0; z-index:3;
+    display:flex; align-items:center; gap:14px; padding:20px 5vw;
+  }
+  .lima-nav .brand-logo{
+    height:76px; width:auto; display:block;
+    filter:brightness(0) drop-shadow(0 0 2px rgba(255,255,255,0.9)) drop-shadow(0 2px 8px rgba(255,255,255,0.55));
+  }
+  .lima-nav .spacer{ flex:1; }
+  .lima-nav .back{
+    font-family:var(--mono); font-size:12px; color:#fff; text-decoration:none;
+    border:1px solid rgba(255,255,255,0.6); padding:9px 16px; border-radius:20px;
+    white-space:nowrap; background:rgba(0,0,0,0.18); backdrop-filter:blur(4px);
+    transition:background .15s ease;
+  }
+  .lima-nav .back:hover{ background:rgba(0,0,0,0.4); }
+
+  .lima-hero{
+    position:relative; min-height:100vh; display:flex; align-items:flex-end;
+    background:#2b1c10; color:#fff; overflow:hidden;
+  }
+  .hero-slides{ position:absolute; inset:0; z-index:0; }
+  .hero-slide{
+    position:absolute; inset:0; background-size:cover; background-position:center;
+    background-repeat:no-repeat; opacity:0; transition:opacity 1.4s ease;
+  }
+  .hero-slide.active{ opacity:1; }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:
+      linear-gradient(to top, rgba(20,12,6,0.85) 0%, rgba(20,12,6,0.25) 40%, rgba(20,12,6,0.0) 65%),
+      linear-gradient(to bottom, rgba(20,12,6,0.45) 0%, rgba(20,12,6,0.0) 22%);
+  }
+  .lima-hero .hero-inner{
+    position:relative; z-index:2; padding:40px 5vw 8vh; max-width:1100px; margin:0 auto; width:100%;
+  }
+  .lima-hero .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.16em;
+    text-transform:uppercase; color:#ffd98a; margin:0 0 10px;
+  }
+  .lima-hero h1{
+    font-family:var(--serif); font-weight:700; font-size:clamp(44px, 9vw, 92px);
+    line-height:0.95; margin:0 0 12px; text-shadow:0 4px 24px rgba(0,0,0,0.45);
+  }
+  .lima-hero .sub{
+    font-family:var(--sans); font-size:clamp(15px,2.4vw,19px); max-width:620px;
+    line-height:1.5; margin:0 0 22px; color:#f4e9dc;
+  }
+  .lima-hero .cta{
+    display:inline-flex; align-items:center; gap:9px; font-family:var(--sans);
+    font-weight:600; font-size:15px; background:var(--teal); color:#fff; text-decoration:none;
+    padding:13px 26px; border-radius:30px; box-shadow:0 10px 26px rgba(0,0,0,0.35);
+    transition:transform .15s ease, background .15s ease;
+  }
+  .lima-hero .cta:hover{ transform:translateY(-2px); background:#26766a; }
+
+  .quick-strip{
+    background:var(--panel-2); border-bottom:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px 34px; justify-content:center; padding:16px 5vw;
+  }
+  .quick-strip .qi{ display:flex; align-items:center; gap:9px; }
+  .quick-strip .qi .k{
+    font-family:var(--mono); font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .quick-strip .qi .v{ font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink); }
+
+  .lima-wrap{ max-width:1100px; margin:0 auto; padding:56px 5vw 40px; }
+  .sec-head{ text-align:center; margin:0 auto 34px; max-width:640px; }
+  .sec-head .kicker{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--clay); margin:0 0 8px;
+  }
+  .sec-head h2{
+    font-family:var(--serif); font-weight:700; font-size:clamp(28px,4.5vw,40px);
+    line-height:1.05; margin:0 0 10px; color:var(--ink);
+  }
+  .sec-head p{ font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--muted); margin:0; }
+
+  .exp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; }
+  .exp-card{
+    background:var(--panel-2); border:1px solid var(--line-strong); border-radius:16px;
+    padding:26px 24px 24px; box-shadow:0 14px 34px rgba(90,45,20,0.10);
+    transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .exp-card:hover{ transform:translateY(-4px); box-shadow:0 22px 44px rgba(90,45,20,0.18); }
+  .exp-card .ico{
+    width:56px; height:56px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--sun));
+    display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:16px;
+  }
+  .exp-card .exp-txt{ font-family:var(--sans); font-weight:500; font-size:15px; line-height:1.5; color:var(--ink); margin:0; }
+
+  .feature-band{
+    margin:60px 0; background:linear-gradient(120deg, var(--clay), var(--clay-deep));
+    color:#fff; border-radius:20px; display:flex; align-items:center; gap:34px;
+    flex-wrap:wrap; padding:42px 44px; box-shadow:var(--shadow);
+  }
+  .feature-band .fb-emoji{ font-size:76px; line-height:1; flex:none; }
+  .feature-band .fb-text{ flex:1 1 320px; min-width:0; }
+  .feature-band .fb-text .kicker{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; color:#ffd98a; margin:0 0 8px;
+  }
+  .feature-band .fb-text h2{
+    font-family:var(--serif); font-weight:700; font-size:clamp(26px,4vw,36px); line-height:1.08; margin:0 0 10px;
+  }
+  .feature-band .fb-text p{ font-family:var(--sans); font-size:16px; line-height:1.6; margin:0; color:#f7e7d8; }
+  .feature-band .fb-text p b{ color:#fff; }
+
+  .travel-data{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; margin-top:8px; }
+  .travel-data .td{ background:var(--panel-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  .travel-data .td .k{
+    font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--muted); display:block; margin-bottom:6px;
+  }
+  .travel-data .td .v{ font-family:var(--serif); font-weight:600; font-size:19px; color:var(--ink); }
+
+  .lima-cta{ text-align:center; margin:64px auto 10px; max-width:640px; }
+  .lima-cta h2{
+    font-family:var(--serif); font-weight:700; font-style:italic;
+    font-size:clamp(28px,5vw,44px); margin:0 0 14px; color:var(--ink);
+  }
+  .lima-cta p{ font-family:var(--sans); font-size:16px; color:var(--muted); margin:0 0 24px; }
+  .lima-cta .btns{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .lima-cta a{
+    font-family:var(--sans); font-weight:600; font-size:15px; text-decoration:none;
+    padding:13px 28px; border-radius:30px; transition:transform .15s ease;
+  }
+  .lima-cta a:hover{ transform:translateY(-2px); }
+  .lima-cta .primary{ background:var(--sun); color:#fff; box-shadow:0 10px 26px rgba(232,111,44,0.4); }
+  .lima-cta .ghost{ background:transparent; color:var(--clay-deep); border:1px solid var(--line-strong); }
+
+  @media (max-width:600px){
+    .feature-band{ padding:32px 26px; text-align:center; justify-content:center; }
+    .quick-strip{ gap:8px 22px; }
   }
 </style>
 </head>
 <body>
 
-<div class="stripe"></div>
-
-<!-- Barra de marca -->
-<div class="brandbar">
-  <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
-  <span class="spacer"></span>
-  <a href="index.html" class="back">← Volver al mapa</a>
-</div>
-
-<main class="region-main" id="region-main">
-  <!-- Contenido generado por JS -->
-</main>
+<div id="app"></div>
 
 <script src="js/data.js"></script>
 <script>
   /* ===== Utilidades ===== */
   function titleCase(str){
-    return str.toLowerCase().split(" ")
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    return str.toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
   }
   function slugify(str){
-    return str.normalize("NFD").replace(/[̀-ͯ]/g,"")
-      .toLowerCase().trim().replace(/\s+/g,"-");
+    return str.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/\s+/g,"-");
   }
+  function esc(s){ return String(s == null ? "" : s); }
 
-  /* ===== Render de la ficha de la región ===== */
   const params = new URLSearchParams(window.location.search);
   const key = (params.get("region") || "").toUpperCase().trim();
-
-  /* Lima tiene su propia página de diseño (prueba). Redirigimos ahí. */
-  if(key === "LIMA"){
-    window.location.replace("lima.html");
-    throw new Error("redirigiendo a lima.html");
-  }
-
   const info = DATA[key];
-  const main = document.getElementById("region-main");
+  const app = document.getElementById("app");
+  const slug = slugify(key);
 
   if(!info){
     document.title = "Región no encontrada — Peruvian Nativo Herbs";
-    main.innerHTML = `<div class="notfound">
-      <p style="font-size:46px;margin:0 0 10px">🗺️</p>
-      <p>Aún no tenemos la ficha de <b>${titleCase(key || "esta región")}</b>.</p>
-      <p><a href="index.html" style="color:var(--clay-deep)">← Volver al mapa</a></p>
-    </div>`;
+    app.innerHTML = `
+      <div class="stripe"></div>
+      <div class="brandbar">
+        <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+        <span class="spacer"></span>
+        <a href="index.html" class="back">← Volver al mapa</a>
+      </div>
+      <div class="notfound">
+        <p style="font-size:46px;margin:0 0 10px">🗺️</p>
+        <p>Aún no tenemos la ficha de <b>${titleCase(key || "esta región")}</b>.</p>
+        <p><a href="index.html" style="color:var(--clay-deep)">← Volver al mapa</a></p>
+      </div>`;
   } else {
+    /* Detectamos cuántas fotos hay en img/<region>/ y decidimos el diseño. */
+    probePhotos(slug, function(photos){
+      if(photos.length >= 2){
+        renderRich(photos);
+      } else {
+        renderNormal(photos[0] || `img/${slug}.png`);
+      }
+    });
+  }
+
+  /* ===== Detección de fotos por carpeta (probing) ===== */
+  function testImage(src, cb){
+    const img = new Image();
+    img.onload = () => cb(true);
+    img.onerror = () => cb(false);
+    img.src = src;
+  }
+  function probePhotos(slug, done){
+    const exts = ["jpg","jpeg","png","webp"];
+    let settled = false, pending = exts.length;
+    // Probamos la 1ª foto en todas las extensiones EN PARALELO (rápido).
+    exts.forEach(ext => {
+      const first = `img/${slug}/1.${ext}`;
+      testImage(first, ok => {
+        if(settled) return;
+        if(ok){ settled = true; collect(ext, first); }
+        else if(--pending === 0){ settled = true; done([]); }  // no hay carpeta con fotos
+      });
+    });
+    function collect(ext, first){
+      const found = [first];
+      step(2);
+      function step(n){
+        if(n > 20){ done(found); return; }
+        const src = `img/${slug}/${n}.${ext}`;
+        testImage(src, ok => { if(ok){ found.push(src); step(n+1); } else done(found); });
+      }
+    }
+  }
+
+  /* ===== MODO RICO (carrusel) ===== */
+  function renderRich(photos){
+    const nombre = titleCase(key);
+    document.title = nombre + " — Peruvian Nativo Herbs";
+
+    const exps = info.actividades.map(a =>
+      `<article class="exp-card"><div class="ico">${a.ico}</div><p class="exp-txt">${a.txt}</p></article>`
+    ).join("");
+
+    app.innerHTML = `
+      <header class="lima-hero">
+        <div class="hero-slides" id="heroSlides"></div>
+        <div class="hero-scrim"></div>
+        <nav class="lima-nav">
+          <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+          <span class="spacer"></span>
+          <a href="index.html" class="back">← Volver al mapa</a>
+        </nav>
+        <div class="hero-inner">
+          <p class="eyebrow">PE-${info.codigo} · Región del Perú</p>
+          <h1>${nombre}</h1>
+          <p class="sub">${info.desc}</p>
+          <a href="#experiencias" class="cta">Descubre ${nombre} ↓</a>
+        </div>
+      </header>
+
+      <div class="quick-strip">
+        <div class="qi"><span class="k">Capital</span><span class="v">${info.capital}</span></div>
+        <div class="qi"><span class="k">Mejor época</span><span class="v">${info.epoca}</span></div>
+        <div class="qi"><span class="k">Altitud</span><span class="v">${info.altitud}</span></div>
+        <div class="qi"><span class="k">Plato típico</span><span class="v">${info.plato}</span></div>
+      </div>
+
+      <main class="lima-wrap">
+        <section id="experiencias">
+          <div class="sec-head">
+            <p class="kicker">¿Qué hacer en ${nombre}?</p>
+            <h2>Planes imperdibles</h2>
+            <p>Esto es lo que no te puedes perder en ${nombre}.</p>
+          </div>
+          <div class="exp-grid">${exps}</div>
+        </section>
+
+        <section class="feature-band">
+          <div class="fb-emoji">${info.simbolo || "⭐"}</div>
+          <div class="fb-text">
+            <p class="kicker">Imperdible</p>
+            <h2>${info.landmark}</h2>
+            <p>${info.imperdible}</p>
+          </div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <p class="kicker">Antes de viajar</p>
+            <h2>Datos para tu viaje</h2>
+          </div>
+          <div class="travel-data">
+            <div class="td"><span class="k">Capital</span><span class="v">${info.capital}</span></div>
+            <div class="td"><span class="k">Mejor época</span><span class="v">${info.epoca}</span></div>
+            <div class="td"><span class="k">Altitud capital</span><span class="v">${info.altitud}</span></div>
+            <div class="td"><span class="k">Plato típico</span><span class="v">${info.plato}</span></div>
+            <div class="td"><span class="k">Lugar representativo</span><span class="v">${info.landmark}</span></div>
+            <div class="td"><span class="k">Código</span><span class="v">PE-${info.codigo}</span></div>
+          </div>
+        </section>
+
+        <section class="lima-cta">
+          <h2>¿Y tú qué planes?</h2>
+          <p>Lleva el sabor del Perú contigo con Peruvian Nativo Herbs.</p>
+          <div class="btns">
+            <a href="sorteo.html" class="primary">🎟️ Participa en el sorteo</a>
+            <a href="index.html" class="ghost">← Explorar otras regiones</a>
+          </div>
+        </section>
+      </main>
+
+      <footer>Peruvian Nativo Herbs · Datos con fines ilustrativos</footer>
+    `;
+
+    startCarousel(photos);
+  }
+
+  function startCarousel(photos){
+    const slidesEl = document.getElementById("heroSlides");
+    const slides = photos.map((src, i) => {
+      const d = document.createElement("div");
+      d.className = "hero-slide" + (i === 0 ? " active" : "");
+      d.style.backgroundImage = `url('${src}')`;
+      slidesEl.appendChild(d);
+      return d;
+    });
+    if(slides.length > 1){
+      let idx = 0;
+      setInterval(() => {
+        slides[idx].classList.remove("active");
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add("active");
+      }, 5000);
+    }
+  }
+
+  /* ===== MODO NORMAL (ficha clásica) ===== */
+  function renderNormal(imgSrc){
     const nombre = titleCase(key);
     document.title = nombre + " — Peruvian Nativo Herbs";
 
     const acts = info.actividades
-      .map(a => `<li><span class="ico">${a.ico}</span><span>${a.txt}</span></li>`)
-      .join("");
+      .map(a => `<li><span class="ico">${a.ico}</span><span>${a.txt}</span></li>`).join("");
     const tags = info.tags.map(t => `<span class="tag">${t}</span>`).join("");
 
-    main.innerHTML = `
-      <section class="region-hero">
-        <div class="hero-symbol">${info.simbolo || "📍"}</div>
-        <div class="hero-text">
-          <p class="code">PE-${info.codigo} · Región del Perú</p>
-          <h1>${nombre}</h1>
-          <p class="landmark">🏛️ Lugar representativo: ${info.landmark}</p>
-          <p class="capital">✈ Capital: ${info.capital}</p>
-        </div>
-      </section>
-
-      <section class="card full dest-card">
-        <h2>Destino más representativo</h2>
-        <img class="dest-hero-img" src="img/${slugify(key)}.png"
-             alt="${info.landmark}"
-             onerror="this.closest('.dest-card').style.display='none'">
-        <p class="dest-hero-cap">${info.simbolo || ''} ${info.landmark}</p>
-      </section>
-
-      <div class="region-grid">
-        <section class="card full">
-          <h2>Descripción</h2>
-          <p class="desc">${info.desc}</p>
-        </section>
-
-        <section class="card">
-          <h2>Qué hacer</h2>
-          <ul class="acts">${acts}</ul>
-        </section>
-
-        <section class="card">
-          <h2>Imperdible</h2>
-          <div class="must">
-            <span class="star">⭐</span>
-            <span>${info.imperdible}</span>
-          </div>
-          <h2 style="margin-top:20px">Etiquetas</h2>
-          <div class="tags">${tags}</div>
-        </section>
-
-        <section class="card full">
-          <h2>Datos de la región</h2>
-          <ul class="datos-list">
-            <li><span class="k">Lugar representativo</span><span class="v">${info.landmark}</span></li>
-            <li><span class="k">Capital</span><span class="v">${info.capital}</span></li>
-            <li><span class="k">Mejor época</span><span class="v">${info.epoca}</span></li>
-            <li><span class="k">Altitud capital</span><span class="v">${info.altitud}</span></li>
-            <li><span class="k">Plato típico</span><span class="v">${info.plato}</span></li>
-            <li><span class="k">Código</span><span class="v">PE-${info.codigo}</span></li>
-          </ul>
-        </section>
+    app.innerHTML = `
+      <div class="stripe"></div>
+      <div class="brandbar">
+        <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+        <span class="spacer"></span>
+        <a href="index.html" class="back">← Volver al mapa</a>
       </div>
+
+      <main class="region-main">
+        <section class="region-hero">
+          <div class="hero-symbol">${info.simbolo || "📍"}</div>
+          <div class="hero-text">
+            <p class="code">PE-${info.codigo} · Región del Perú</p>
+            <h1>${nombre}</h1>
+            <p class="landmark">🏛️ Lugar representativo: ${info.landmark}</p>
+            <p class="capital">✈ Capital: ${info.capital}</p>
+          </div>
+        </section>
+
+        <section class="card full dest-card">
+          <h2>Destino más representativo</h2>
+          <img class="dest-hero-img" src="${imgSrc}" alt="${info.landmark}"
+               onerror="this.closest('.dest-card').style.display='none'">
+          <p class="dest-hero-cap">${info.simbolo || ''} ${info.landmark}</p>
+        </section>
+
+        <div class="region-grid">
+          <section class="card full">
+            <h2>Descripción</h2>
+            <p class="desc">${info.desc}</p>
+          </section>
+
+          <section class="card">
+            <h2>Qué hacer</h2>
+            <ul class="acts">${acts}</ul>
+          </section>
+
+          <section class="card">
+            <h2>Imperdible</h2>
+            <div class="must"><span class="star">⭐</span><span>${info.imperdible}</span></div>
+            <h2 style="margin-top:20px">Etiquetas</h2>
+            <div class="tags">${tags}</div>
+          </section>
+
+          <section class="card full">
+            <h2>Datos de la región</h2>
+            <ul class="datos-list">
+              <li><span class="k">Lugar representativo</span><span class="v">${info.landmark}</span></li>
+              <li><span class="k">Capital</span><span class="v">${info.capital}</span></li>
+              <li><span class="k">Mejor época</span><span class="v">${info.epoca}</span></li>
+              <li><span class="k">Altitud capital</span><span class="v">${info.altitud}</span></li>
+              <li><span class="k">Plato típico</span><span class="v">${info.plato}</span></li>
+              <li><span class="k">Código</span><span class="v">PE-${info.codigo}</span></li>
+            </ul>
+          </section>
+        </div>
+      </main>
     `;
   }
 </script>

@@ -75,11 +75,6 @@ fetch(geoUrl)
   });
 
 function openRegion(key){
-  // Lima tiene su propia página de diseño (prueba).
-  if(key === "LIMA"){
-    window.location.href = "lima.html";
-    return;
-  }
   window.location.href = "region.html?region=" + encodeURIComponent(key);
 }
 
@@ -136,7 +131,7 @@ function selectRegion(key, node){
           <p class="section-title">Destino representativo</p>
           <img class="dest-img" src="img/${slugify(key)}.png"
                alt="${info.landmark}"
-               onerror="this.closest('.dest').style.display='none'">
+               onerror="this.closest('.dest').style.display='none';">
           <span class="dest-cap">${info.simbolo || ''} ${info.landmark}</span>
         </div>
       </div>
