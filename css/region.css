@@ -252,3 +252,14 @@ html{ scroll-behavior:smooth; }
   .feature-band{ padding:32px 26px; text-align:center; justify-content:center; }
   .quick-strip{ gap:8px 22px; }
 }
+
+/* En celular el hero deja de ser pantalla completa: baja de altura para que
+   la foto (horizontal) se recorte mucho menos y no se vea agrandada. */
+@media (max-width:640px){
+  .lima-hero{ min-height:62svh; }
+  .lima-hero .hero-inner{ padding-bottom:6vh; }
+}
+/* Pantallas muy bajas (celular apaisado): un poco más de alto para el texto. */
+@media (max-width:640px) and (max-height:520px){
+  .lima-hero{ min-height:88svh; }
+}

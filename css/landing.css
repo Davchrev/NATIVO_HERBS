@@ -117,5 +117,7 @@
 @media (max-width:760px){
   .place{ grid-template-columns:1fr; gap:18px; }
   .place:nth-child(even) .place-media{ order:0; }
-  .place-media img{ aspect-ratio:16 / 10; }
+  /* Fotos compactas y TODAS del mismo alto: ocupan menos pantalla en el móvil.
+     (object-position se puede afinar por foto con el campo "pos" en data.js) */
+  .place-media img{ aspect-ratio:auto; height:200px; object-position:center; }
 }
