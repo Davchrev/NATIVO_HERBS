@@ -443,6 +443,14 @@ text.plabel.active{ opacity:1; }
   margin-bottom:12px;
 }
 .empty-state .pin{ font-size:34px; display:block; margin-bottom:14px; }
+.empty-state .brand-mark{
+  display:block;
+  width:280px;
+  max-width:95%;
+  height:auto;
+  margin:26px auto 0;
+  opacity:0.9;
+}
 
 footer{
   padding:18px 5vw 30px;

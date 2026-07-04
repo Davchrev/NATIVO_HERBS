@@ -75,6 +75,11 @@ fetch(geoUrl)
   });
 
 function openRegion(key){
+  // Lima tiene su propia página de diseño (prueba).
+  if(key === "LIMA"){
+    window.location.href = "lima.html";
+    return;
+  }
   window.location.href = "region.html?region=" + encodeURIComponent(key);
 }
 

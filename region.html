@@ -235,6 +235,13 @@
   /* ===== Render de la ficha de la región ===== */
   const params = new URLSearchParams(window.location.search);
   const key = (params.get("region") || "").toUpperCase().trim();
+
+  /* Lima tiene su propia página de diseño (prueba). Redirigimos ahí. */
+  if(key === "LIMA"){
+    window.location.replace("lima.html");
+    throw new Error("redirigiendo a lima.html");
+  }
+
   const info = DATA[key];
   const main = document.getElementById("region-main");
 
