@@ -20,6 +20,16 @@ const info = DATA[key];
 const app = document.getElementById("app");
 const slug = slugify(key);
 
+/* Preload de la primera imagen del hero: empieza a descargar inmediatamente,
+   incluso antes de renderizar, para evitar el parpadeo negro. */
+if(info && Array.isArray(info.fotos) && info.fotos.length){
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'image';
+  link.href = info.fotos[0].src;
+  document.head.appendChild(link);
+}
+
 if(!info){
   document.title = "Región no encontrada — Peruvian Nativo Herbs";
   app.innerHTML = `
