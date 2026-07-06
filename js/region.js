@@ -81,6 +81,17 @@ function renderRich(){
   /* Fotos del hero */
   const slidesEl = document.getElementById("slides");
   const tplSlide = document.getElementById("tpl-slide");
+
+  /* Placeholder difuminado ("blur-up"): mientras la primera foto se descarga,
+     mostramos una miniatura diminuta incrustada (info.blur) escalada al hero.
+     Así nunca se ve el fondo negro; la foto nítida la reemplaza al llegar. */
+  const heroEl = document.querySelector(".lima-hero");
+  if(info.blur && heroEl){
+    heroEl.style.backgroundImage = `url("${info.blur}")`;
+    heroEl.style.backgroundSize = "cover";
+    heroEl.style.backgroundPosition = "center";
+  }
+
   info.fotos.forEach((f, i) => {
     const node = tplSlide.content.cloneNode(true);
     const slide = node.querySelector(".hero-slide");
