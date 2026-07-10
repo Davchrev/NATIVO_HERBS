@@ -1,6 +1,6 @@
 /* ==========================================================================
    Render del mapa del Perú y de la ficha de viaje (boarding pass).
-   Requiere: d3 (CDN) y DATA (js/data.js).
+   Requiere: el SVG precompilado de index.html y DATA (js/data.js).
    ========================================================================== */
 
 function normalize(str){
@@ -18,73 +18,56 @@ function slugify(str){
     .toLowerCase().trim().replace(/\s+/g,"-");
 }
 
-const svg = d3.select("#map");
-const width = 600, height = 800;
-
 /* ¿El dispositivo tiene mouse real (hover)? En móvil/táctil será false. */
 const canHover = window.matchMedia("(hover: hover)").matches;
+const preloadedHeroes = new Set();
 
-const geoUrl = "https://raw.githubusercontent.com/juaneladio/peru-geojson/master/peru_departamental_simple.geojson";
-
-fetch(geoUrl)
-  .then(r => r.json())
-  .then(geojson => {
-    const projection = d3.geoMercator().fitSize([width - 20, height - 20], geojson);
-    projection.translate([projection.translate()[0] + 10, projection.translate()[1] + 10]);
-    const pathGen = d3.geoPath(projection);
-
-    const g = svg.append("g");
-
-    const features = g.selectAll("g.feat")
-      .data(geojson.features)
-      .enter()
-      .append("g")
-      .attr("class","feat");
-
-    features.append("path")
-      .attr("class","province")
-      .attr("d", d => pathGen(d))
-      .attr("data-name", d => normalize(d.properties.NOMBDEP))
-      .on("mouseenter", function(event, d){
-        if(canHover) selectRegion(normalize(d.properties.NOMBDEP), this);
-      })
-      .on("click", function(event, d){
-        const key = normalize(d.properties.NOMBDEP);
-        // Si la región ya está seleccionada (activa), un nuevo click/tap la abre.
-        // Si no, primero solo la selecciona y muestra su info.
-        if(this.classList.contains("active")){
-          openRegion(key);
-        } else {
-          selectRegion(key, this);
-        }
-      });
-
-    features.append("text")
-      .attr("class","plabel")
-      .attr("x", d => pathGen.centroid(d)[0])
-      .attr("y", d => pathGen.centroid(d)[1])
-      .attr("text-anchor","middle")
-      .text(d => d.properties.NOMBDEP);
-
-    const count = document.getElementById("region-count");
-    if(count) count.textContent = geojson.features.length + " regiones";
-  })
-  .catch(err => {
-    document.querySelector(".hint").textContent = "// no se pudo cargar el mapa (revisa tu conexión)";
-    console.error(err);
+const regions = Array.from(document.querySelectorAll("path.province"));
+regions.forEach(region => {
+  region.addEventListener("mouseenter", function(){
+    if(canHover) selectRegion(this.dataset.name, this);
   });
+  region.addEventListener("click", function(){
+    const key = this.dataset.name;
+    // Si la región ya está seleccionada (activa), un nuevo click/tap la abre.
+    // Si no, primero solo la selecciona y muestra su info.
+    if(this.classList.contains("active")){
+      openRegion(key);
+    } else {
+      selectRegion(key, this);
+    }
+  });
+});
+
+const count = document.getElementById("region-count");
+if(count) count.textContent = regions.length + " regiones";
+
+function preloadRegionHero(key){
+  const firstPhoto = DATA[key]?.fotos?.[0];
+  if(!firstPhoto || preloadedHeroes.has(firstPhoto.src)) return;
+  preloadedHeroes.add(firstPhoto.src);
+
+  const previewSrc = firstPhoto.src.replace(/\.webp$/, "-720.webp");
+  const link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "image";
+  link.href = firstPhoto.width > 720 ? previewSrc : firstPhoto.src;
+  link.fetchPriority = "high";
+  document.head.appendChild(link);
+}
 
 function openRegion(key){
   window.location.href = "region.html?region=" + encodeURIComponent(key);
 }
 
 function selectRegion(key, node){
+  preloadRegionHero(key);
   document.querySelectorAll("path.province").forEach(p => p.classList.remove("active"));
   document.querySelectorAll("text.plabel").forEach(t => t.classList.remove("active"));
   if(node){
     node.classList.add("active");
-    if(node.nextSibling && node.nextSibling.classList){
-      node.nextSibling.classList.add("active");
+    if(node.nextElementSibling && node.nextElementSibling.classList){
+      node.nextElementSibling.classList.add("active");
     }
   }
 

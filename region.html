@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Región — Peruvian Nativo Herbs</title>
 <meta name="description" content="Ficha de viaje de la región del Perú: lugares turísticos, qué hacer, imperdibles y datos de viaje." />
+<script>
+/* Inicia la descarga de la vista previa antes de que terminen de cargar el CSS y el HTML. */
+(function(){
+  var raw = new URLSearchParams(location.search).get("region") || "";
+  var key = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
+  var folders = {"CUSCO":"cusco", "LA LIBERTAD":"la-libertad", "LIMA":"lima", "LORETO":"loreto"};
+  if(!folders[key]) return;
+  var link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "image";
+  link.href = "img/" + folders[key] + "/1-720.webp";
+  link.fetchPriority = "high";
+  document.head.appendChild(link);
+}());
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,1,400;9..144,1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">

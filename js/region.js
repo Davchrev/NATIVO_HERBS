@@ -15,11 +15,11 @@ function slugify(str){
 function esc(s){ return String(s == null ? "" : s); }
 function smallImage(src){ return src.replace(/\.webp$/, "-720.webp"); }
 function setResponsiveImage(img, src, width, sizes){
-  img.src = src;
   if(width > 720){
     img.srcset = `${smallImage(src)} 720w, ${src} ${width}w`;
     img.sizes = sizes;
   }
+  img.src = src;
 }
 function deferResponsiveImage(img, src, width, sizes){
   img.dataset.src = src;
@@ -37,26 +37,27 @@ function loadDeferredImage(img){
   delete img.dataset.srcset;
   delete img.dataset.sizes;
 }
+function whenImageDecoded(img){
+  return new Promise(resolve => {
+    const decode = () => {
+      if(typeof img.decode === "function") img.decode().catch(() => {}).then(resolve);
+      else resolve();
+    };
+    if(img.complete){
+      if(img.naturalWidth) decode();
+      else resolve();
+      return;
+    }
+    img.addEventListener("load", decode, { once:true });
+    img.addEventListener("error", resolve, { once:true });
+  });
+}
 
 const params = new URLSearchParams(window.location.search);
 const key = (params.get("region") || "").toUpperCase().trim();
 const info = DATA[key];
 const app = document.getElementById("app");
 const slug = slugify(key);
-
-/* Preload de la primera imagen del hero: empieza a descargar inmediatamente,
-   incluso antes de renderizar, para evitar el parpadeo negro. */
-if(info && Array.isArray(info.fotos) && info.fotos.length){
-  const link = document.createElement('link');
-  link.rel = 'preload';
-  link.as = 'image';
-  link.href = info.fotos[0].src;
-  if(info.fotos[0].width > 720){
-    link.setAttribute('imagesrcset', `${smallImage(info.fotos[0].src)} 720w, ${info.fotos[0].src} ${info.fotos[0].width}w`);
-    link.setAttribute('imagesizes', '100vw');
-  }
-  document.head.appendChild(link);
-}
 
 if(!info){
   document.title = "Región no encontrada — Peruvian Nativo Herbs";
@@ -110,31 +111,52 @@ function renderRich(){
   const slidesEl = document.getElementById("slides");
   const tplSlide = document.getElementById("tpl-slide");
 
-  /* Placeholder difuminado ("blur-up"): mientras la primera foto se descarga,
-     mostramos una miniatura diminuta incrustada (info.blur) escalada al hero.
-     Así nunca se ve el fondo negro; la foto nítida la reemplaza al llegar. */
-  const heroEl = document.querySelector(".lima-hero");
-  if(info.blur && heroEl){
-    heroEl.style.backgroundImage = `url("${info.blur}")`;
-    heroEl.style.backgroundSize = "cover";
-    heroEl.style.backgroundPosition = "center";
-  }
-
   info.fotos.forEach((f, i) => {
     const node = tplSlide.content.cloneNode(true);
     const slide = node.querySelector(".hero-slide");
     const img = node.querySelector("img");
-    if(i === 0){
-      slide.classList.add("active");
-      img.setAttribute("fetchpriority", "high");
-      setResponsiveImage(img, f.src, f.width || 1600, "100vw");
-    } else {
-      deferResponsiveImage(img, f.src, f.width || 1600, "100vw");
-    }
     img.alt = f.alt || nombre;
     if(f.pos) img.style.objectPosition = f.pos;
+
+    if(i === 0){
+      slide.classList.add("active");
+      img.classList.add("hero-preview");
+      img.setAttribute("fetchpriority", "high");
+      img.src = f.width > 720 ? smallImage(f.src) : f.src;
+
+      const needsLargeImage = f.width > 720 && window.matchMedia("(min-width: 721px)").matches;
+      if(needsLargeImage){
+        const full = document.createElement("img");
+        full.className = "hero-full";
+        full.alt = img.alt;
+        full.decoding = "async";
+        full.dataset.src = f.src;
+        if(f.pos) full.style.objectPosition = f.pos;
+        slide.appendChild(full);
+      }
+    } else {
+      img.classList.add("hero-full");
+      deferResponsiveImage(img, f.src, f.width || 1600, "100vw");
+    }
     slidesEl.appendChild(node);
   });
+
+  const firstSlide = slidesEl.querySelector(".hero-slide");
+  const preview = firstSlide?.querySelector(".hero-preview");
+  if(firstSlide && preview){
+    whenImageDecoded(preview).then(() => {
+      if(!preview.naturalWidth) return;
+      firstSlide.classList.add("preview-ready");
+
+      const full = firstSlide.querySelector(".hero-full[data-src]");
+      if(!full) return;
+      full.src = full.dataset.src;
+      delete full.dataset.src;
+      whenImageDecoded(full).then(() => {
+        if(full.naturalWidth) firstSlide.classList.add("full-ready");
+      });
+    });
+  }
 
   /* Lugares destacados */
   const placesEl = document.getElementById("places");
@@ -194,16 +216,19 @@ function startCarousel(slidesEl){
   let idx = 0;
   const advance = () => {
     const next = (idx + 1) % slides.length;
-    const img = slides[next].querySelector("img");
+    const img = slides[next].querySelector(".hero-full") || slides[next].querySelector("img");
     loadDeferredImage(img);
-    const show = () => {
+    whenImageDecoded(img).then(() => {
+      if(!img.naturalWidth){
+        setTimeout(advance, 5000);
+        return;
+      }
+      slides[next].classList.add("full-ready");
       slides[idx].classList.remove("active");
       idx = next;
       slides[idx].classList.add("active");
       setTimeout(advance, 5000);
-    };
-    if(img.complete && img.naturalWidth) show();
-    else img.addEventListener("load", show, { once:true });
+    });
   };
   setTimeout(advance, 5000);
 }

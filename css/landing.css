@@ -9,6 +9,16 @@
   width:100%; height:100%;
   object-fit:cover;
   display:block;
+  opacity:0;
+}
+.hero-slide.preview-ready .hero-preview{
+  opacity:1;
+}
+.hero-slide .hero-full{
+  transition:opacity 150ms ease;
+}
+.hero-slide.full-ready .hero-full{
+  opacity:1;
 }
 
 /* --- Intro de la región --- */
