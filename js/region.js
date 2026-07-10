@@ -13,6 +13,30 @@ function slugify(str){
   return str.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/\s+/g,"-");
 }
 function esc(s){ return String(s == null ? "" : s); }
+function smallImage(src){ return src.replace(/\.webp$/, "-720.webp"); }
+function setResponsiveImage(img, src, width, sizes){
+  img.src = src;
+  if(width > 720){
+    img.srcset = `${smallImage(src)} 720w, ${src} ${width}w`;
+    img.sizes = sizes;
+  }
+}
+function deferResponsiveImage(img, src, width, sizes){
+  img.dataset.src = src;
+  if(width > 720){
+    img.dataset.srcset = `${smallImage(src)} 720w, ${src} ${width}w`;
+    img.dataset.sizes = sizes;
+  }
+}
+function loadDeferredImage(img){
+  if(!img || !img.dataset.src) return;
+  if(img.dataset.srcset) img.srcset = img.dataset.srcset;
+  if(img.dataset.sizes) img.sizes = img.dataset.sizes;
+  img.src = img.dataset.src;
+  delete img.dataset.src;
+  delete img.dataset.srcset;
+  delete img.dataset.sizes;
+}
 
 const params = new URLSearchParams(window.location.search);
 const key = (params.get("region") || "").toUpperCase().trim();
@@ -27,6 +51,10 @@ if(info && Array.isArray(info.fotos) && info.fotos.length){
   link.rel = 'preload';
   link.as = 'image';
   link.href = info.fotos[0].src;
+  if(info.fotos[0].width > 720){
+    link.setAttribute('imagesrcset', `${smallImage(info.fotos[0].src)} 720w, ${info.fotos[0].src} ${info.fotos[0].width}w`);
+    link.setAttribute('imagesizes', '100vw');
+  }
   document.head.appendChild(link);
 }
 
@@ -35,7 +63,7 @@ if(!info){
   app.innerHTML = `
     <div class="stripe"></div>
     <div class="brandbar">
-      <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+      <a href="index.html"><img class="brand-logo" src="Logo.webp" width="476" height="409" alt="Peruvian Nativo Herbs" decoding="async" /></a>
       <span class="spacer"></span>
       <a href="index.html" class="back">← Volver al mapa</a>
     </div>
@@ -47,7 +75,7 @@ if(!info){
 } else if(Array.isArray(info.lugares) && info.lugares.length){
   renderRich();
 } else {
-  renderNormal(`img/${slug}.png`);
+  renderNormal(`img/${slug}.webp`);
 }
 
 /* ===== MODO RICO — rellena la plantilla #rich desde los datos ===== */
@@ -96,9 +124,13 @@ function renderRich(){
     const node = tplSlide.content.cloneNode(true);
     const slide = node.querySelector(".hero-slide");
     const img = node.querySelector("img");
-    if(i === 0){ slide.classList.add("active"); img.setAttribute("fetchpriority", "high"); }
-    else { img.setAttribute("loading", "lazy"); }
-    img.src = f.src;
+    if(i === 0){
+      slide.classList.add("active");
+      img.setAttribute("fetchpriority", "high");
+      setResponsiveImage(img, f.src, f.width || 1600, "100vw");
+    } else {
+      deferResponsiveImage(img, f.src, f.width || 1600, "100vw");
+    }
     img.alt = f.alt || nombre;
     if(f.pos) img.style.objectPosition = f.pos;
     slidesEl.appendChild(node);
@@ -107,10 +139,11 @@ function renderRich(){
   /* Lugares destacados */
   const placesEl = document.getElementById("places");
   const tplPlace = document.getElementById("tpl-place");
+  const photoWidths = Object.fromEntries(info.fotos.map(f => [f.src, f.width || 1600]));
   info.lugares.forEach(l => {
     const node = tplPlace.content.cloneNode(true);
     const img = node.querySelector(".place-media img");
-    img.src = l.img;
+    setResponsiveImage(img, l.img, photoWidths[l.img] || 1600, "(max-width: 720px) 100vw, 550px");
     img.alt = l.nombre;
     if(l.pos) img.style.objectPosition = l.pos;
     node.querySelector(".place-badge").textContent = l.badge || "";
@@ -159,11 +192,20 @@ function startCarousel(slidesEl){
   const slides = Array.from(slidesEl.querySelectorAll(".hero-slide"));
   if(slides.length < 2) return;
   let idx = 0;
-  setInterval(() => {
-    slides[idx].classList.remove("active");
-    idx = (idx + 1) % slides.length;
-    slides[idx].classList.add("active");
-  }, 5000);
+  const advance = () => {
+    const next = (idx + 1) % slides.length;
+    const img = slides[next].querySelector("img");
+    loadDeferredImage(img);
+    const show = () => {
+      slides[idx].classList.remove("active");
+      idx = next;
+      slides[idx].classList.add("active");
+      setTimeout(advance, 5000);
+    };
+    if(img.complete && img.naturalWidth) show();
+    else img.addEventListener("load", show, { once:true });
+  };
+  setTimeout(advance, 5000);
 }
 
 /* ===== MODO NORMAL (ficha clásica) ===== */
@@ -178,7 +220,7 @@ function renderNormal(imgSrc){
   app.innerHTML = `
     <div class="stripe"></div>
     <div class="brandbar">
-      <a href="index.html"><img class="brand-logo" src="Logo.png" alt="Peruvian Nativo Herbs" /></a>
+      <a href="index.html"><img class="brand-logo" src="Logo.webp" width="476" height="409" alt="Peruvian Nativo Herbs" decoding="async" /></a>
       <span class="spacer"></span>
       <a href="index.html" class="back">← Volver al mapa</a>
     </div>
@@ -196,7 +238,7 @@ function renderNormal(imgSrc){
 
       <section class="card full dest-card">
         <h2>Destino más representativo</h2>
-        <img class="dest-hero-img" src="${imgSrc}" alt="${info.landmark}"
+        <img class="dest-hero-img" src="${imgSrc}" alt="${info.landmark}" loading="lazy" decoding="async"
              onerror="this.closest('.dest-card').style.display='none'">
         <p class="dest-hero-cap">${info.simbolo || ''} ${info.landmark}</p>
       </section>

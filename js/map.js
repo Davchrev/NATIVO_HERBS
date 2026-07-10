@@ -129,8 +129,9 @@ function selectRegion(key, node){
 
         <div class="dest">
           <p class="section-title">Destino representativo</p>
-          <img class="dest-img" src="img/${slugify(key)}.png"
+          <img class="dest-img" src="img/${slugify(key)}.webp"
                alt="${info.landmark}"
+               loading="lazy" decoding="async"
                onerror="this.closest('.dest').style.display='none';">
           <span class="dest-cap">${info.simbolo || ''} ${info.landmark}</span>
         </div>

@@ -120,23 +120,23 @@ const DATA = {
     epoca:"Mayo – Setiembre", altitud:"3,399 msnm",
     intro:"Ombligo del mundo para los incas, Cusco mezcla templos de piedra, calles coloniales y montañas de otro planeta. Cada camino aquí lleva a una maravilla.",
     fotos:[
-      {src:"img/cusco/1.jpg", alt:"Machu Picchu entre montañas"},
-      {src:"img/cusco/2.jpg", alt:"Montaña de 7 Colores (Vinicunca)"},
-      {src:"img/cusco/3.jpg", alt:"Callejón del barrio de San Blas", pos:"50% 40%"},
-      {src:"img/cusco/5.jpg", alt:"Machu Picchu desde una ventana inca"},
-      {src:"img/cusco/4.jpg", alt:"Niños andinos con una llama"}
+      {src:"img/cusco/1.webp", width:1600, alt:"Machu Picchu entre montañas"},
+      {src:"img/cusco/2.webp", width:1600, alt:"Montaña de 7 Colores (Vinicunca)"},
+      {src:"img/cusco/3.webp", width:1200, alt:"Callejón del barrio de San Blas", pos:"50% 40%"},
+      {src:"img/cusco/5.webp", width:1600, alt:"Machu Picchu desde una ventana inca"},
+      {src:"img/cusco/4.webp", width:1600, alt:"Niños andinos con una llama"}
     ],
     lugares:[
-      {badge:"01 · Maravilla del mundo", kicker:"Ciudad perdida de los incas", nombre:"Machu Picchu", img:"img/cusco/1.jpg",
+      {badge:"01 · Maravilla del mundo", kicker:"Ciudad perdida de los incas", nombre:"Machu Picchu", img:"img/cusco/1.webp",
        desc:"La ciudadela inca del siglo XV, colgada entre picos y neblina a 2,430 m. Se llega en tren hasta Aguas Calientes o caminando el Camino Inca. Ir al amanecer, cuando las nubes se abren sobre las terrazas, es inolvidable.",
        meta:["🚆 Tren o Camino Inca","🎟️ Entrada con horario","🌄 Ideal al amanecer"]},
-      {badge:"02 · Vinicunca", kicker:"A más de 5,000 m", nombre:"Montaña de 7 Colores", img:"img/cusco/2.jpg",
+      {badge:"02 · Vinicunca", kicker:"A más de 5,000 m", nombre:"Montaña de 7 Colores", img:"img/cusco/2.webp",
        desc:"Franjas minerales de rojo, turquesa y dorado pintan esta montaña de la cordillera del Vilcanota. La caminata es corta pero exigente por la altura: conviene aclimatarse antes en Cusco.",
        meta:["🥾 Caminata de altura","🧥 Frío intenso","📷 Paisaje único"]},
-      {badge:"03 · San Blas", kicker:"El barrio de los artesanos", nombre:"San Blas y el casco histórico", img:"img/cusco/3.jpg", pos:"50% 45%",
+      {badge:"03 · San Blas", kicker:"El barrio de los artesanos", nombre:"San Blas y el casco histórico", img:"img/cusco/3.webp", pos:"50% 45%",
        desc:"Callejuelas empedradas, casonas coloniales sobre muros incas y talleres de arte. Desde sus miradores se ve toda la ciudad con sus tejados rojos; a pasos están la Plaza de Armas, la Catedral y el Qorikancha.",
        meta:["🎨 Arte y talleres","⛪ Iglesias coloniales","📸 Miradores"]},
-      {badge:"04 · Valle Sagrado", kicker:"Cultura viva", nombre:"Valle Sagrado de los Incas", img:"img/cusco/4.jpg",
+      {badge:"04 · Valle Sagrado", kicker:"Cultura viva", nombre:"Valle Sagrado de los Incas", img:"img/cusco/4.webp",
        desc:"Pisac, Ollantaytambo y Chinchero guardan la tradición textil y agrícola que sigue viva en las comunidades quechuas. Un valle de terrazas incas, llamas y trajes de colores camino a Machu Picchu.",
        meta:["🧶 Textiles","🏘️ Pueblos incas","🦙 Comunidades"]}
     ],
@@ -219,14 +219,14 @@ const DATA = {
     epoca:"Setiembre – Diciembre", altitud:"34 msnm",
     intro:"Cuna de grandes culturas preincas y de la marinera, Trujillo combina ciudadelas de barro, playas de surfistas y el sol eterno de la 'Ciudad de la Primavera'.",
     fotos:[
-      {src:"img/la-libertad/1.png", alt:"Atardecer en Huanchaco con caballitos de totora"},
-      {src:"img/la-libertad/2.png", alt:"Caballitos de totora en la playa de Huanchaco"}
+      {src:"img/la-libertad/1.webp", width:1080, alt:"Atardecer en Huanchaco con caballitos de totora"},
+      {src:"img/la-libertad/2.webp", width:678, alt:"Caballitos de totora en la playa de Huanchaco"}
     ],
     lugares:[
-      {badge:"01 · Huanchaco", kicker:"Surf y tradición", nombre:"Playa de Huanchaco", img:"img/la-libertad/1.png",
+      {badge:"01 · Huanchaco", kicker:"Surf y tradición", nombre:"Playa de Huanchaco", img:"img/la-libertad/1.webp",
        desc:"Balneario de pescadores y surfistas donde aún se navega en 'caballitos de totora', embarcaciones de junco con más de 3,000 años de historia. Su muelle y sus atardeceres dorados son una postal del norte peruano.",
        meta:["🏄 Surf","🌅 Atardeceres","🎣 Pesca artesanal"]},
-      {badge:"02 · Patrimonio vivo", kicker:"Herencia milenaria", nombre:"Caballitos de totora", img:"img/la-libertad/2.png",
+      {badge:"02 · Patrimonio vivo", kicker:"Herencia milenaria", nombre:"Caballitos de totora", img:"img/la-libertad/2.webp",
        desc:"Los pescadores tejen y montan estas balsas de junco igual que hace milenios. Puedes verlos salir al mar al amanecer o subir a una para navegar la orilla: un oficio declarado Patrimonio Cultural de la Nación.",
        meta:["🛶 Paseo en balsa","📜 Patrimonio","🐟 Oficio ancestral"]}
     ],
@@ -267,22 +267,22 @@ const DATA = {
     epoca:"Diciembre – Abril", altitud:"154 msnm",
     intro:"Entre neblina, huacas milenarias y la mejor cocina del continente, Lima mezcla como ninguna otra el pasado colonial con un presente frente al mar.",
     fotos:[
-      {src:"img/lima/1.jpg", alt:"Costa Verde y Malecón de Miraflores"},
-      {src:"img/lima/3.jpg", alt:"Palacio de Gobierno, Centro Histórico"},
-      {src:"img/lima/4.jpg", alt:"Faro de la Marina, Miraflores"},
-      {src:"img/lima/2.jpg", alt:"Acantilados de Miraflores al atardecer", pos:"50% 35%"}
+      {src:"img/lima/1.webp", width:1600, alt:"Costa Verde y Malecón de Miraflores"},
+      {src:"img/lima/3.webp", width:1600, alt:"Palacio de Gobierno, Centro Histórico"},
+      {src:"img/lima/4.webp", width:1193, alt:"Faro de la Marina, Miraflores"},
+      {src:"img/lima/2.webp", width:1600, alt:"Acantilados de Miraflores al atardecer", pos:"50% 35%"}
     ],
     lugares:[
-      {badge:"01 · Miraflores", kicker:"Frente al Pacífico", nombre:"Malecón de Miraflores y la Costa Verde", img:"img/lima/1.jpg",
+      {badge:"01 · Miraflores", kicker:"Frente al Pacífico", nombre:"Malecón de Miraflores y la Costa Verde", img:"img/lima/1.webp",
        desc:"Kilómetros de parques sobre acantilados con vista al mar. Aquí despegan los parapentes, corren los surfistas y se camina hasta el Parque del Amor y el centro comercial Larcomar, colgado sobre la playa.",
        meta:["🕐 Todo el día","🎟️ Acceso libre","🪂 Parapente"]},
-      {badge:"02 · Cercado", kicker:"Patrimonio de la Humanidad", nombre:"Centro Histórico de Lima", img:"img/lima/3.jpg",
+      {badge:"02 · Cercado", kicker:"Patrimonio de la Humanidad", nombre:"Centro Histórico de Lima", img:"img/lima/3.webp",
        desc:"La Plaza Mayor, el Palacio de Gobierno, la Catedral y los balcones coloniales de madera cuentan la historia de la ciudad fundada en 1535. Imperdible el cambio de guardia y las catacumbas del Convento de San Francisco.",
        meta:["🕐 9:00 – 17:00","⛪ Iglesias coloniales","🏛️ UNESCO"]},
-      {badge:"03 · Malecón", kicker:"Postal limeña", nombre:"Faro de la Marina", img:"img/lima/4.jpg",
+      {badge:"03 · Malecón", kicker:"Postal limeña", nombre:"Faro de la Marina", img:"img/lima/4.webp",
        desc:"Rodeado de palmeras y jardines, este faro de 1900 es uno de los rincones más fotografiados del malecón. Al atardecer, el cielo sobre el Pacífico se tiñe de naranja y la ciudad baja el ritmo.",
        meta:["🌅 Ideal al atardecer","🎟️ Gratis","📷 Mirador"]},
-      {badge:"04 · Costa Verde", kicker:"Skyline sobre el mar", nombre:"Miradores de la Costa Verde", img:"img/lima/2.jpg", pos:"50% 40%",
+      {badge:"04 · Costa Verde", kicker:"Skyline sobre el mar", nombre:"Miradores de la Costa Verde", img:"img/lima/2.webp", pos:"50% 40%",
        desc:"La bahía de Lima se extiende bajo los acantilados con la ciudad asomada al borde. Un circuito de miradores conecta Miraflores con Barranco y Chorrillos, perfecto para pedalear o correr junto al océano.",
        meta:["🚴 Ciclovía","🌊 Playas","🌇 Atardeceres"]}
     ],
@@ -309,18 +309,18 @@ const DATA = {
     epoca:"Junio – Octubre (vaciante)", altitud:"106 msnm",
     intro:"Sin carreteras que la conecten, la mayor región del Perú se recorre por río. Iquitos es la puerta a una Amazonía de delfines rosados, lodges y pueblos flotantes.",
     fotos:[
-      {src:"img/loreto/1.jpg", alt:"Río serpenteando en la selva amazónica"},
-      {src:"img/loreto/3.jpg", alt:"Lodge de cabañas con techo de palma en la selva"},
-      {src:"img/loreto/2.jpg", alt:"Dosel de la selva amazónica"}
+      {src:"img/loreto/1.webp", width:1600, alt:"Río serpenteando en la selva amazónica"},
+      {src:"img/loreto/3.webp", width:1079, alt:"Lodge de cabañas con techo de palma en la selva"},
+      {src:"img/loreto/2.webp", width:1600, alt:"Dosel de la selva amazónica"}
     ],
     lugares:[
-      {badge:"01 · Río Amazonas", kicker:"El río más caudaloso", nombre:"Navegación por el Amazonas", img:"img/loreto/1.jpg",
+      {badge:"01 · Río Amazonas", kicker:"El río más caudaloso", nombre:"Navegación por el Amazonas", img:"img/loreto/1.webp",
        desc:"Desde Iquitos zarpan cruceros y botes hacia la inmensidad del río más grande del mundo. Entre meandros aparecen delfines rosados, aves y comunidades ribereñas que viven al ritmo de la creciente y la vaciante.",
        meta:["🛶 Cruceros y botes","🐬 Delfines rosados","🌅 Amaneceres en el río"]},
-      {badge:"02 · Lodges", kicker:"Dormir en la selva", nombre:"Lodges amazónicos", img:"img/loreto/3.jpg",
+      {badge:"02 · Lodges", kicker:"Dormir en la selva", nombre:"Lodges amazónicos", img:"img/loreto/3.webp",
        desc:"Cabañas de madera y techo de palma en medio de la jungla, con caminatas nocturnas, avistamiento de fauna y visitas a comunidades. La mejor forma de sumergirse en la Amazonía lejos de la ciudad.",
        meta:["🌳 En plena selva","🦜 Fauna","🌙 Caminatas nocturnas"]},
-      {badge:"03 · Pacaya-Samiria", kicker:"Selva inundable", nombre:"Reserva Nacional Pacaya-Samiria", img:"img/loreto/2.jpg",
+      {badge:"03 · Pacaya-Samiria", kicker:"Selva inundable", nombre:"Reserva Nacional Pacaya-Samiria", img:"img/loreto/2.webp",
        desc:"Más de 2 millones de hectáreas de 'selva de agua': lagos, cochas y bosques inundables llenos de nutrias gigantes, manatíes, caimanes y cientos de aves. Se explora en canoa entre paisajes de espejo.",
        meta:["🚣 En canoa","🐆 Biodiversidad","💧 Selva inundable"]}
     ],
